@@ -16,12 +16,10 @@ const todoSchema = mongoose.Schema({
     type: String,
   },
 });
-
 const Todo = mongoose.model("Todo", todoSchema);
 
 app.get("/api/todos", async (req, res) => {
   try {
-    console.log("reached 2");
     const todos = await Todo.find();
     res.status(201).json({
       message: "sucessfully  found todo",
@@ -39,11 +37,10 @@ app.get("/api/todos", async (req, res) => {
   }
 });
 app.post("/api/todos", async (req, res) => {
-  console.log(req.body._id)
   const { todoItem } = req.body;
   try {
-    const todo = await Todo.create({content:todoItem})
-    console.log(req.body)
+    const todo = await Todo.create({ content: todoItem });
+    console.log(req.body);
     res.status(201).json({
       message: "sucessfully  created todo",
       data: todo,
@@ -60,10 +57,9 @@ app.post("/api/todos", async (req, res) => {
   }
 });
 
-app.delete("/api/todos",async (req,res)=>{
+app.delete("/api/todos", async (req, res) => {
   try {
-    console.log(req.body._id)
-    const response = await Todo.findByIdAndRemove(req.body._id)
+    const response = await Todo.findByIdAndRemove(req.body._id);
     res.status(201).json({
       message: "sucessfully  deleted todo",
       data: response,
@@ -77,9 +73,8 @@ app.delete("/api/todos",async (req,res)=>{
       sucess: false,
       err: { error },
     });
-  } 
-})
-
+  }
+});
 
 app.listen(3001, async () => {
   console.log("Server running in Port 3001");
